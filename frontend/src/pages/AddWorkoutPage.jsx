@@ -7,6 +7,9 @@ const AddWorkoutPage = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user ? user.token : null;
+
   const navigate = useNavigate();
   const addWorkout = async (newWorkout) => {
     try {
@@ -14,6 +17,7 @@ const AddWorkoutPage = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
         },
         body: JSON.stringify(newWorkout),
       });
@@ -38,12 +42,12 @@ const AddWorkoutPage = () => {
     }
     console.log("Form submitted");
 
-     const success = await addWorkout(newWorkout);
+    const success = await addWorkout(newWorkout);
     if (success) {
-      console.log("Vehicle Added Successfully");
+      console.log("Workout Added Successfully");
       navigate("/");
     } else {
-      console.error("Failed to add the Vehicle");
+      console.error("Failed to add the Workout");
     }
   };
 

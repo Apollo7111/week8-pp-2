@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const EditWorkoutPage = () => {
+const EditWorkoutPage = ({ isAuthenticated }) => {
   const [title, setTitle] = useState("");
   const [difficulty, setDifficulty] = useState("Beginner");
   const [description, setDescription] = useState("");
@@ -13,6 +13,8 @@ const EditWorkoutPage = () => {
   const { id } = useParams();
 
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = user ? user.token : null;
 
   useEffect(() => {
     const fetchWorkout = async () => {
@@ -38,6 +40,7 @@ const EditWorkoutPage = () => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(newWorkout),
       });

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SignUpPage = () => {
+const SignUpPage = ({ setIsAuthenticated }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -34,6 +34,7 @@ const SignUpPage = () => {
 
     localStorage.setItem("user", JSON.stringify(user));
     console.log("success");
+    setIsAuthenticated(true);
     navigate("/");
   }
 
